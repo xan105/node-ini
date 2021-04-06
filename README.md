@@ -107,7 +107,7 @@ ini.parse(string, {autoType : { //granular autotype
 ### Implementation notice
 
 - Sections cannot be nested
-- Comments are ignored (! and #)
+- Comments are ignored (; and #)
 - Inline comments are not allowed !
 - Duplicate names : override first occurrence
 - Case sensitive
