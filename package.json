@@ -38,8 +38,6 @@
   "homepage": "https://github.com/xan105/node-ini#readme",
   "devDependencies": {
     "eslint": "^7.23.0",
-    "ini": "^2.0.0",
-    "js-ini": "^1.3.0",
     "tap": "^15.0.1"
   }
 }
