@@ -131,5 +131,5 @@ Encode the object obj into an ini-style formatted string.
 
 - Sections shall not be nested
 - Case sensitive
-- Empty section are allowed
+- Empty sections are allowed
 - Key value can only be a boolean, number or string
