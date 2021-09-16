@@ -1,13 +1,10 @@
 {
   "name": "@xan105/ini",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Yet another (opinionated) ini encoder/decoder for Node.js.",
   "type": "module",
-  "main": "./lib/ini.cjs",
-  "exports": {
-    "import": "./lib/esm.mjs",
-    "require": "./lib/ini.cjs"
-  },
+  "exports": "./lib/esm.js",
+  "types": "./types/esm.d.ts",
   "engines": {
     "node": ">=0.14"
   },
@@ -16,7 +13,7 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "npx eslint --ignore-path .gitignore ./**/*.{cjs,mjs}",
+    "lint": "npx eslint --ignore-path .gitignore ./**/*.{js,mjs}",
     "test": "tap"
   },
   "keywords": [
@@ -37,7 +34,7 @@
   },
   "homepage": "https://github.com/xan105/node-ini#readme",
   "devDependencies": {
-    "eslint": "^7.23.0",
+    "eslint": "^7.32.0",
     "tap": "^15.0.1"
   }
 }

@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import t from 'tap';
-import * as ini from '../lib/esm.mjs';
+import * as ini from '../lib/esm.js';
 
 const expected = [
     {

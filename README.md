@@ -1,7 +1,10 @@
+About
+=====
+
 Yet another (_opinionated_) ini encoder/decoder for Node.js.
 
-Usage example
--------------
+Example
+=======
 
 Consider an ini-file that looks like this:
 
@@ -27,15 +30,12 @@ Node
 
 ```js
 //ESM
-import * as ini from '@xan105/ini';
-import { promises as fs} from 'fs';
-//CommonJS
-const ini = require('@xan105/ini');
-const { promises : fs } = require('fs');
+import { parse } from '@xan105/ini';
+import { readFile } from 'node:fs/promises';
 
-fs.readFile("path/to/ini","utf8")
+readFile("path/to/ini","utf8")
 .then((content)=>{
-  const data = ini.parse(content);
+  const data = parse(content);
   console.log(data);
 }).catch(console.error);
 
@@ -61,28 +61,31 @@ Output:
 ```
 
 Install
--------
+=======
 
-```
-npm install @xan105/ini
-```
+`npm install @xan105/ini`
 
 API
----
+===
 
-## parse(string: string, [option: obj]): obj
+⚠️ This module is only available as an ECMAScript module (ESM) starting with version 2.0.0.<br />
+Previous version(s) are CommonJS (CJS) with an ESM wrapper.
+
+## Named export
+
+### parse(string: string, option?: obj): obj
 
 Decode the ini-style formatted string into an object.
 
-### option ⚙️
+#### option ⚙️
 
 |name|type|default|description|
 |----|----|-------|-----------|
-|autoType|bool or {bool...}|{...}|Auto string to boolean / number and unquote string**|
+|autoType|bool or {...bool}|{...}|Auto string to boolean / number and unquote string**|
 |ignoreGlobalSection|bool|false|Ignore keys without a section aka 'Global' section|
 |sectionFilter|string[]|[]|List of section name to filter out|
 
-### Auto type**
+#### Auto type**
 
 autoType option accepts the following obj for granular control or a boolean true/false which force all options to true/false:
 
@@ -95,16 +98,16 @@ autoType option accepts the following obj for granular control or a boolean true
 _Example_: 
 
 ```js
-ini.parse(string); //default
-ini.parse(string, {autoType : true}); //every autotype to true
-ini.parse(string, {autoType : { //granular autotype
+parse(string); //default
+parse(string, {autoType : true}); //every autotype to true
+parse(string, {autoType : { //granular autotype
   bool: true,
   number: true
 }, ignoreGlobalSection: true}); //with an additional parse option
 
 ```
 
-### Implementation notice
+#### Implementation notice
 
 - Sections cannot be nested
 - Comments are ignored (; and #)
@@ -114,11 +117,11 @@ ini.parse(string, {autoType : { //granular autotype
 - Name/value delimiter is "=" and is mandatory
 - Whitespace around section name, key name and key value are trimmed.
 
-## stringify(obj: obj, [option: obj]: string
+### stringify(obj: obj, option?: obj): string
 
 Encode the object obj into an ini-style formatted string.
 
-### option ⚙️
+#### option ⚙️
 
 |name|type|default|description|
 |----|----|-------|-----------|
@@ -127,7 +130,7 @@ Encode the object obj into an ini-style formatted string.
 |ignoreGlobalSection|bool|false|Ignore root properties (not under any namespace if you will)|
 |quoteString|bool|false|Quote string values using double quotes ("...")|
 
-### Implementation notice
+#### Implementation notice
 
 - Sections shall not be nested
 - Case sensitive
