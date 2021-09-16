@@ -29,16 +29,12 @@ datadirWin = "C:\Windows"
 Node
 
 ```js
-//ESM
 import { parse } from '@xan105/ini';
 import { readFile } from 'node:fs/promises';
 
-readFile("path/to/ini","utf8")
-.then((content)=>{
-  const data = parse(content);
-  console.log(data);
-}).catch(console.error);
-
+const file = await readFile("path/to/ini","utf8");
+const ini = parse(file);
+console.log(ini);
 ```
 
 Output:
