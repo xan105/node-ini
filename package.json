@@ -1,6 +1,6 @@
 {
   "name": "@xan105/ini",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yet another (opinionated) ini encoder/decoder for Node.js.",
   "type": "module",
   "main": "./lib/ini.cjs",
@@ -9,7 +9,7 @@
     "require": "./lib/ini.cjs"
   },
   "engines": {
-    "node": ">=0.12"
+    "node": ">=0.14"
   },
   "directories": {
     "lib": "lib",
