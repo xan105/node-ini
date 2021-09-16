@@ -69,7 +69,7 @@ Previous version(s) are CommonJS (CJS) with an ESM wrapper.
 
 ## Named export
 
-### parse(string: string, option?: obj): obj
+### `parse(string: string, option?: obj): obj`
 
 Decode the ini-style formatted string into an object.
 
@@ -77,7 +77,7 @@ Decode the ini-style formatted string into an object.
 
 |name|type|default|description|
 |----|----|-------|-----------|
-|autoType|bool or {...bool}|{...}|Auto string to boolean / number and unquote string¹|
+|autoType|bool or {...bool}¹|{...}|Auto string to boolean / number and unquote string|
 |ignoreGlobalSection|bool|false|Ignore keys without a section aka 'Global' section|
 |sectionFilter|string[]|[]|List of section name to filter out|
 
@@ -113,7 +113,7 @@ parse(string, {autoType : { //granular autotype
 - Name/value delimiter is "=" and is mandatory
 - Whitespace around section name, key name and key value are trimmed.
 
-### stringify(obj: obj, option?: obj): string
+### `stringify(obj: obj, option?: obj): string`
 
 Encode the object obj into an ini-style formatted string.
 
