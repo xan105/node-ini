@@ -77,11 +77,11 @@ Decode the ini-style formatted string into an object.
 
 |name|type|default|description|
 |----|----|-------|-----------|
-|autoType|bool or {...bool}|{...}|Auto string to boolean / number and unquote string**|
+|autoType|bool or {...bool}|{...}|Auto string to boolean / number and unquote string¹|
 |ignoreGlobalSection|bool|false|Ignore keys without a section aka 'Global' section|
 |sectionFilter|string[]|[]|List of section name to filter out|
 
-#### Auto type**
+#### Auto type¹
 
 autoType option accepts the following obj for granular control or a boolean true/false which force all options to true/false:
 
