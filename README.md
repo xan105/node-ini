@@ -88,7 +88,7 @@ autoType option accepts the following obj for granular control or a boolean true
 |name|type|default|description|
 |----|----|-------|-----------|
 |bool|bool|true|String to boolean|
-|number|bool|false|String to number|
+|number|bool|false|String to number or [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)|
 |unquote|bool|false|Remove leading and trailing quote (" or ') in a string value|
 
 _Example_: 
@@ -115,7 +115,7 @@ parse(string, {autoType : { //granular autotype
 
 ### `stringify(obj: obj, option?: obj): string`
 
-Encode the object obj into an ini-style formatted string.
+Encode the (plain) object obj into an ini-style formatted string.
 
 #### option ⚙️
 
@@ -131,4 +131,4 @@ Encode the object obj into an ini-style formatted string.
 - Sections shall not be nested
 - Case sensitive
 - Empty sections are allowed
-- Key value can only be a boolean, number or string
+- Key value can only be a boolean, number, [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) or string
