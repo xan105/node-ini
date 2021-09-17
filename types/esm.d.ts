@@ -16,7 +16,8 @@ declare interface IStringifyOption {
   whitespace?: bool,
   blankLine?: bool,
   ignoreGlobalSection?: bool,
-  quoteString?: bool
+  quoteString?: bool,
+  eol?: string
 }
 
 export function stringify(obj: any, option?: IStringifyOption): string;

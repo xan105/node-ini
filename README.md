@@ -125,6 +125,7 @@ Encode the object obj into an ini-style formatted string.
 |blankLine|bool|true|Add blank lines between sections|
 |ignoreGlobalSection|bool|false|Ignore root properties (not under any namespace if you will)|
 |quoteString|bool|false|Quote string values using double quotes ("...")|
+|eol|string|system's EOL|Either "\n" _(POSIX)_ or "\r\n" _(Windows)_|
 
 #### Implementation notice
 
