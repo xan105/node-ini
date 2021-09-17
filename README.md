@@ -115,7 +115,7 @@ parse(string, {autoType : { //granular autotype
 
 ### `stringify(obj: obj, option?: obj): string`
 
-Encode the (plain) object obj into an ini-style formatted string.
+Encode the object obj into an ini-style formatted string.
 
 #### option ⚙️
 
