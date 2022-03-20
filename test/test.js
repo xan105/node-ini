@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import t from 'tap';
-import * as ini from '../lib/esm.js';
+import * as ini from '../lib/index.js';
 
 const expected = [
     {
@@ -154,9 +154,9 @@ t.test('basic', t => {
   const content = fs.readFileSync(sample,"utf8");
 
   t.same(ini.parse(content), expected[0], 'parsing default option');
-  t.same(ini.parse(content, {autoType: true}), expected[1], 'parsing autotype on');
-  t.same(ini.parse(content, {autoType: {bool: true, number: true, unquote: true}}), expected[1], 'parsing autotype all');
-  t.same(ini.parse(content, {autoType: false, sectionFilter: ["Database"], ignoreGlobalSection: true}), expected[2], 'parsing autotype off and filter and no global');
+  t.same(ini.parse(content, {translate: true}), expected[1], 'translate on');
+  t.same(ini.parse(content, {translate: {bool: true, number: true, unquote: true}}), expected[1], 'translate all');
+  t.same(ini.parse(content, {translate: false, sectionFilter: ["Database"], ignoreGlobalSection: true}), expected[2], 'translate off and filter and no global');
   t.end();
 });
 

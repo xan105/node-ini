@@ -59,7 +59,9 @@ Output:
 Install
 =======
 
-`npm install @xan105/ini`
+```
+npm install @xan105/ini
+```
 
 API
 ===
@@ -77,26 +79,26 @@ Decode the ini-style formatted string into an object.
 
 |name|type|default|description|
 |----|----|-------|-----------|
-|autoType|bool or {...bool}¹|{...}|Auto string to boolean / number and unquote string|
-|ignoreGlobalSection|bool|false|Ignore keys without a section aka 'Global' section|
+|translate|boolean or {...boolean}¹|{...}|Auto string to boolean / number and unquote string|
+|ignoreGlobalSection|boolean|false|Ignore keys without a section aka 'Global' section|
 |sectionFilter|string[]|[]|List of section name to filter out|
 
-#### Auto type¹
+#### Translate¹
 
-autoType option accepts the following obj for granular control or a boolean true/false which force all options to true/false:
+Translate option accepts the following obj for granular control or a boolean true/false which force all options to true/false:
 
 |name|type|default|description|
 |----|----|-------|-----------|
-|bool|bool|true|String to boolean|
-|number|bool|false|String to number or [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)|
-|unquote|bool|false|Remove leading and trailing quote (" or ') in a string value|
+|bool|boolean|true|String to boolean|
+|number|boolean|false|String to number or [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)|
+|unquote|boolean|false|Remove leading and trailing quote (" or ') in a string value|
 
 _Example_: 
 
 ```js
 parse(string); //default
-parse(string, {autoType : true}); //every autotype to true
-parse(string, {autoType : { //granular autotype
+parse(string, {translate : true}); //every to true
+parse(string, {translate : { //granular
   bool: true,
   number: true
 }, ignoreGlobalSection: true}); //with an additional parse option
@@ -121,10 +123,10 @@ Encode the object obj into an ini-style formatted string.
 
 |name|type|default|description|
 |----|----|-------|-----------|
-|whitespace|bool|false|Whether to put whitespace around the delimiter =|
-|blankLine|bool|true|Add blank lines between sections|
-|ignoreGlobalSection|bool|false|Ignore root properties (not under any namespace if you will)|
-|quoteString|bool|false|Quote string values using double quotes ("...")|
+|whitespace|boolean|false|Whether to put whitespace around the delimiter =|
+|blankLine|boolean|true|Add blank lines between sections|
+|ignoreGlobalSection|boolean|false|Ignore root properties (not under any namespace if you will)|
+|quoteString|boolean|false|Quote string values using double quotes ("...")|
 |eol|string|system's EOL|Either "\n" _(POSIX)_ or "\r\n" _(Windows)_|
 
 #### Implementation notice
