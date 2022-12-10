@@ -91,7 +91,8 @@ Translate option accepts the following obj for granular control or a boolean tru
 |----|----|-------|-----------|
 |bool|boolean|true|String to boolean|
 |number|boolean|false|String to number or [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)|
-|unquote|boolean|false|Remove leading and trailing quote (" or ') in a string value|
+|unsafe|boolean|false|Set to true to keep unsafe integer instead of bigint|
+|unquote|boolean|false|Remove leading and trailing quote (" or ')|
 
 _Example_: 
 
