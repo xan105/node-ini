@@ -82,6 +82,9 @@ Decode the ini-style formatted string into an object.
 |translate|boolean or {...boolean}¹|{...}|Auto string to boolean / number and unquote string|
 |ignoreGlobalSection|boolean|false|Ignore keys without a section aka 'Global' section|
 |sectionFilter|string[]|[]|List of section name to filter out|
+|removeInline|boolean|false|Remove illegal inline comment|
+
+⚠️ `removeInline` can have false positive. **Use with caution**.
 
 #### Translate¹
 
@@ -111,6 +114,8 @@ parse(string, {translate : { //granular
 - Sections cannot be nested
 - Comments are ignored (; and #)
 - Inline comments are not allowed !
+  + Section: they are ignored
+  + Value: they are considered as part of the value _unless_ you use the `removeInline` option 
 - Duplicate names : override first occurrence
 - Case sensitive
 - Name/value delimiter is "=" and is mandatory
