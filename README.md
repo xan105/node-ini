@@ -121,6 +121,26 @@ parse(string, {translate : { //granular
 - Name/value delimiter is "=" and is mandatory
 - Whitespace around section name, key name and key value are trimmed.
 
+<details>
+<summary>⚠️ JSON compatibility</summary>
+
+Some integers will be represented as **BigInt** due to their size if the related translate options are used.<br/>
+**BigInt is not a valid value in the JSON spec**.<br/>
+As such when stringify-ing the returned object you'll need to handle the JSON stringify replacer function to prevent it to fail.
+
+A common workaround is to represent them as a string:
+
+```js
+JSON.stringify(data, function(key, value) {
+  if(typeof value === "bigint")
+    return value.toString();
+  else
+    return value;
+});
+```
+
+</details>
+
 ### `stringify(obj: obj, option?: obj): string`
 
 Encode the object obj into an ini-style formatted string.
