@@ -35,6 +35,7 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: '""',
         mixed: `"something'`
       },
@@ -89,6 +90,7 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: "",
         mixed: `"something'`
       },
@@ -139,6 +141,7 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: '""',
         mixed: `"something'`
       },
@@ -189,6 +192,7 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: '""',
         mixed: `"something'`
       },
