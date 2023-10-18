@@ -11,12 +11,13 @@ Example
 =======
 
 ```js
-import { parse } from "@xan105/ini";
-import { readFile } from "node:fs/promises";
+import { parse, stringify } from "@xan105/ini";
+import { readFile, writeFile } from "node:fs/promises";
 
 const file = await readFile("path/to/ini", "utf8");
-const ini = parse(file);
-console.log(ini);
+const data = parse(file);
+//do something
+await writeFile("path/to/ini", data, "utf8");
 ```
 
 Install
@@ -68,8 +69,7 @@ Decode the ini-style formatted string into an object.
   When set to true comments are stored in the symbol property `comment` of the returned object otherwise they are ignored.
   
 - `removeInline?:boolean` (false)<br />
-  Remove illegal inline comment<br />
-  ⚠️ Can have false positive. **Use with caution**.
+  Remove illegal inline comment. ⚠️ Can have false positive. **Use with caution**.
 
 #### 📝 Implementation notice
 
@@ -119,7 +119,7 @@ Encode the object obj into an ini-style formatted string.
   Quote string values using double quotes ("...").
   
 - `comment?: boolean` (true)<br />
-  Restore comments from the symbol property `comment` of the given object.
+  Restore comments from the symbol property `comment` of the given object (if any).
   
 - `eol?:string` (system's EOL)<br />
   Either "\n" _(POSIX)_ or "\r\n" _(Windows)_.
