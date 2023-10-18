@@ -1,6 +1,6 @@
 {
   "name": "@xan105/ini",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "An opinionated ini encoder/decoder with comment-preserving feature.",
   "type": "module",
   "exports": {
