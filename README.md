@@ -78,10 +78,11 @@ Decode the ini-style formatted string into an object.
 - Inline comments are not allowed !
   + Section: they are ignored.
   + Value: they are considered as part of the value _unless_ you use the `removeInline` option to strip them.
-- Duplicate names: override first occurrence.
+- Duplicate keys: override first occurrence.
 - Case sensitive.
-- Name/value delimiter is "=" and is mandatory.
-- Whitespace around section name, key name and key value are trimmed.
+- Key/value delimiter is `=` and is mandatory.
+- Whitespaces around section, key and value are trimmed.
+- One key/value per line
 
 #### ⚠️ JSON compatibility
 
@@ -129,4 +130,4 @@ Encode the object obj into an ini-style formatted string.
 - Sections shall not be nested.
 - Case sensitive.
 - Empty sections are allowed.
-- Key value can only be a boolean, number, bigint or string.
+- Value can only be a boolean, number, bigint or string.

@@ -239,8 +239,8 @@ t.test("basic", t => {
 t.test("read write read equivalence", t => {
   const originalFile = path.resolve("./test/sample/php.ini");
   const originalData = fs.readFileSync(originalFile,"utf8");
-  const data = ini.parse(originalData, { comment: false });
-  const result = ini.parse(ini.stringify(data, { comment: false }), { comment: false });
+  const data = ini.parse(originalData);
+  const result = ini.parse(ini.stringify(data));
   t.strictSame(result, data, 'is stringify producing same result as original');
 
   t.end();
