@@ -47,16 +47,16 @@ Decode the ini-style formatted string into an object.
   
   💡 Translate option accepts an object for granular control or a boolean which will force all following options to true/false:
   
-  + `bool?:boolean` (true)<br />
+  + `bool?: boolean` (true)<br />
     String to boolean.
     
-  + `number?:boolean` (false)<br />
+  + `number?: boolean` (false)<br />
     String to number or bigint.
     
-  + `unsafe?:boolean` (false)<br />
+  + `unsafe?: boolean` (false)<br />
     Set to true to keep unsafe integer instead of bigint.
     
-  + `unquote?:boolean` (false)<br />
+  + `unquote?: boolean` (false)<br />
     Remove leading and trailing quotes (" or ').
 
 - `ignoreGlobalSection?: boolean` (false)<br />
@@ -68,7 +68,7 @@ Decode the ini-style formatted string into an object.
 - `comment?: boolean` (true)<br />
   When set to true comments are stored in the symbol property `comment` of the returned object otherwise they are ignored.
   
-- `removeInline?:boolean` (false)<br />
+- `removeInline?: boolean` (false)<br />
   Remove illegal inline comment. ⚠️ Can have false positive. **Use with caution**.
 
 #### 📝 Implementation notice
@@ -106,22 +106,22 @@ Encode the object obj into an ini-style formatted string.
 
 #### ⚙️ Options
 
-- `whitespace?:boolean` (false)<br />
+- `whitespace?: boolean` (false)<br />
   Whether to put whitespace around the delimiter `=`.
   
-- `blankLine?:boolean` (true)<br />
+- `blankLine?: boolean` (true)<br />
   Add blank lines between sections.
 
-- `ignoreGlobalSection?:boolean` (false)<br />
+- `ignoreGlobalSection?: boolean` (false)<br />
   Ignore root properties (not under any namespace if you will).
   
-- `quoteString?:boolean` (false)<br />
+- `quoteString?: boolean` (false)<br />
   Quote string values using double quotes ("...").
   
 - `comment?: boolean` (true)<br />
   Restore comments from the symbol property `comment` of the given object (if any).
   
-- `eol?:string` (system's EOL)<br />
+- `eol?: string` (system's EOL)<br />
   Either "\n" _(POSIX)_ or "\r\n" _(Windows)_.
 
 #### 📝 Implementation notice
