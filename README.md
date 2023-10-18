@@ -1,59 +1,22 @@
 About
 =====
 
-An opinionated ini encoder/decoder with comment-preserving features.
+An opinionated ini encoder/decoder with comment-preserving feature.
+
+Originally created due to several issues when using npm/ini and alternatives.
+
+📦 Scoped `@xan105` packages are for my own personal use but feel free to use them.
 
 Example
 =======
 
-Consider an ini-file that looks like this:
-
-```ini
-; foo
-# bar
-
-scope = global
- answer= 42
-password type = string
-yes = true
-
-[Database]
-password = some very*difficult=password:
-database-name =my-project-db
-
-[DB.default]
-datadir = /var/lib/data
-datadirWin = "C:\Windows"
-```
-
-Node
-
 ```js
-import { parse } from '@xan105/ini';
-import { readFile } from 'node:fs/promises';
+import { parse } from "@xan105/ini";
+import { readFile } from "node:fs/promises";
 
 const file = await readFile("path/to/ini", "utf8");
 const ini = parse(file);
 console.log(ini);
-```
-
-Output:
-
-```json
-{
-  "scope": "global",
-  "answer": "42",
-  "password type": "string",
-  "yes": true,
-  "Database": {
-    "password": "some very*difficult=password:",
-    "database-name": "my-project-db"
-  },
-  "DB.default": {
-    "datadir": "/var/lib/data",
-    "datadirWin": "C:\\Windows"
-  }
-}
 ```
 
 Install
@@ -75,7 +38,7 @@ Previous version(s) are CommonJS (CJS) with an ESM wrapper.
 
 Decode the ini-style formatted string into an object.
 
-#### Options ⚙️
+#### ⚙️ Options
 
 - `translate:? boolean | object`
 
@@ -87,7 +50,7 @@ Decode the ini-style formatted string into an object.
     String to boolean.
     
   + `number?:boolean` (false)
-    String to number or [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
+    String to number or bigint.
     
   + `unsafe?:boolean` (false)
     Set to true to keep unsafe integer instead of bigint.
@@ -108,16 +71,16 @@ Decode the ini-style formatted string into an object.
   Remove illegal inline comment<br/>
   ⚠️ Can have false positive. **Use with caution**.
 
-#### Implementation notice
+#### 📝 Implementation notice
 
-- Sections cannot be nested
-- Comments start with ; or #
+- Sections cannot be nested.
+- Comments start with `;` or `#`.
 - Inline comments are not allowed !
-  + Section: they are ignored
-  + Value: they are considered as part of the value _unless_ you use the `removeInline` option to strip them
-- Duplicate names: override first occurrence
-- Case sensitive
-- Name/value delimiter is "=" and is mandatory
+  + Section: they are ignored.
+  + Value: they are considered as part of the value _unless_ you use the `removeInline` option to strip them.
+- Duplicate names: override first occurrence.
+- Case sensitive.
+- Name/value delimiter is "=" and is mandatory.
 - Whitespace around section name, key name and key value are trimmed.
 
 #### ⚠️ JSON compatibility
@@ -141,19 +104,26 @@ JSON.stringify(data, function(key, value) {
 
 Encode the object obj into an ini-style formatted string.
 
-#### option ⚙️
+#### ⚙️ Options
 
-|name|type|default|description|
-|----|----|-------|-----------|
-|whitespace|boolean|false|Whether to put whitespace around the delimiter =|
-|blankLine|boolean|true|Add blank lines between sections|
-|ignoreGlobalSection|boolean|false|Ignore root properties (not under any namespace if you will)|
-|quoteString|boolean|false|Quote string values using double quotes ("...")|
-|eol|string|system's EOL|Either "\n" _(POSIX)_ or "\r\n" _(Windows)_|
+- `whitespace?:boolean` (false)
+  Whether to put whitespace around the delimiter `=`.
+  
+- `blankLine?:boolean` (true)
+  Add blank lines between sections.
 
-#### Implementation notice
+- `ignoreGlobalSection?:boolean` (false)
+  Ignore root properties (not under any namespace if you will).
+  
+- `quoteString?:boolean` (false)
+  Quote string values using double quotes ("...").
+  
+- `eol?:string` (system's EOL)
+  Either "\n" _(POSIX)_ or "\r\n" _(Windows)_.
 
-- Sections shall not be nested
-- Case sensitive
-- Empty sections are allowed
-- Key value can only be a boolean, number, [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) or string
+#### 📝 Implementation notice
+
+- Sections shall not be nested.
+- Case sensitive.
+- Empty sections are allowed.
+- Key value can only be a boolean, number, bigint or string.
