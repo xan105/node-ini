@@ -3,6 +3,7 @@ declare interface Option {
   blankLine?: boolean,
   ignoreGlobalSection?: boolean,
   quoteString?: boolean,
+  comment?: boolean,
   eol?: string
 }
 

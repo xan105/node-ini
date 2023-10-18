@@ -8,7 +8,13 @@ declare interface Translate {
 declare interface Option {
   translate?: boolean | Translate,
   ignoreGlobalSection?: boolean,
-  sectionFilter?: string[]
+  sectionFilter?: string[],
+  comment?: boolean,
+  removeInline?: boolean
 }
 
-export function parse(string: string, option?: Option): object;
+declare interface Result {
+  [key: symbol | string]: string
+}
+
+export function parse(string: string, option?: Option): Result;

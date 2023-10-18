@@ -1,7 +1,7 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import t from 'tap';
-import * as ini from '../lib/index.js';
+import fs from "node:fs";
+import path from "node:path";
+import t from "tap";
+import * as ini from "../lib/index.js";
 
 const expected = [
     {
@@ -35,8 +35,10 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: '""',
-        mixed: `"something'`
+        mixed: `"something'`,
+        multi: "foo \\"
       },
       h: {
         lessIsMore : '\"\\.\"',
@@ -89,8 +91,10 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: "",
-        mixed: `"something'`
+        mixed: `"something'`,
+        multi: "foo \\"
       },
       h: {
         lessIsMore : "\\.",
@@ -139,8 +143,10 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: '""',
-        mixed: `"something'`
+        mixed: `"something'`,
+        multi: "foo \\"
       },
       h: {
         lessIsMore : '\"\\.\"',
@@ -189,8 +195,10 @@ const expected = [
       },
       f: {
         "void" : "",
+        foo: "bar = foo",
         empty: '""',
-        mixed: `"something'`
+        mixed: `"something'`,
+        multi: "foo \\"
       },
       h: {
         lessIsMore : '\"\\.\"',
@@ -214,7 +222,7 @@ const expected = [
     }
   ];
 
-t.test('basic', t => {
+t.test("basic", t => {
 
   const sample = path.resolve("./test/sample/basic.ini");
   const content = fs.readFileSync(sample,"utf8");
@@ -224,15 +232,16 @@ t.test('basic', t => {
   t.same(ini.parse(content, {translate: {bool: true, number: true, unquote: true}}), expected[1], 'translate all');
   t.same(ini.parse(content, {translate: false, sectionFilter: ["Database"], ignoreGlobalSection: true}), expected[2], 'translate off and filter and no global');
   t.same(ini.parse(content, {removeInline: true }), expected[3], 'illegal inline comment');
+  t.same(ini.parse(ini.stringify({hello: "world"},{quoteString: true})),{hello: '\"world\"'},"quoted");
   t.end();
 });
 
-t.test('read write read equivalence', t => {
+t.test("read write read equivalence", t => {
   const originalFile = path.resolve("./test/sample/php.ini");
-  const originalData = ini.parse(fs.readFileSync(originalFile,"utf8"));
-  const data = ini.parse(ini.stringify(originalData));
-  t.strictSame(data, originalData, 'is stringify producing same result as original');
+  const originalData = fs.readFileSync(originalFile,"utf8");
+  const data = ini.parse(originalData);
+  const result = ini.parse(ini.stringify(data));
+  t.strictSame(result, data, 'is stringify producing same result as original');
 
-  t.same(ini.parse(ini.stringify({hello: "world"},{quoteString: true})),{hello: '\"world\"'},"quoted");
   t.end();
 });

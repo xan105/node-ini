@@ -1,59 +1,23 @@
 About
 =====
 
-Yet another (_opinionated_) ini encoder/decoder for Node.js.
+An opinionated ini encoder/decoder with comment-preserving feature.
+
+Originally created due to several issues when using npm/ini and alternatives.
+
+📦 Scoped `@xan105` packages are for my own personal use but feel free to use them.
 
 Example
 =======
 
-Consider an ini-file that looks like this:
-
-```ini
-; this comment is being ignored
-# that one as well
-
-scope = global
- answer= 42
-password type = string
-yes = true
-
-[Database]
-password = some very*difficult=password:
-database-name =my-project-db
-
-[DB.default]
-datadir = /var/lib/data
-datadirWin = "C:\Windows"
-```
-
-Node
-
 ```js
-import { parse } from '@xan105/ini';
-import { readFile } from 'node:fs/promises';
+import { parse, stringify } from "@xan105/ini";
+import { readFile, writeFile } from "node:fs/promises";
 
-const file = await readFile("path/to/ini","utf8");
-const ini = parse(file);
-console.log(ini);
-```
-
-Output:
-
-```json
-{
-  "scope": "global",
-  "answer": "42",
-  "password type": "string",
-  "yes": true,
-  "Database": {
-    "password": "some very*difficult=password:",
-    "database-name": "my-project-db"
-  },
-  "DB.default": {
-    "datadir": "/var/lib/data",
-    "datadirWin": "C:\\Windows"
-  }
-}
+const file = await readFile("path/to/ini", "utf8");
+const data = parse(file);
+//do something
+await writeFile("path/to/ini", data, "utf8");
 ```
 
 Install
@@ -71,62 +35,60 @@ Previous version(s) are CommonJS (CJS) with an ESM wrapper.
 
 ## Named export
 
-### `parse(string: string, option?: obj): obj`
+### `parse(string: string, option?: object): object`
 
 Decode the ini-style formatted string into an object.
 
-#### option ⚙️
+#### ⚙️ Options
 
-|name|type|default|description|
-|----|----|-------|-----------|
-|translate|boolean or {...boolean}¹|{...}|Auto string to boolean / number and unquote string|
-|ignoreGlobalSection|boolean|false|Ignore keys without a section aka 'Global' section|
-|sectionFilter|string[]|[]|List of section name to filter out|
-|removeInline|boolean|false|Remove illegal inline comment|
+- `translate:? boolean | object`
 
-⚠️ `removeInline` can have false positive. **Use with caution**.
+  Auto string convertion.
+  
+  💡 Translate option accepts an object for granular control or a boolean which will force all following options to true/false:
+  
+  + `bool?: boolean` (true)<br />
+    String to boolean.
+    
+  + `number?: boolean` (false)<br />
+    String to number or bigint.
+    
+  + `unsafe?: boolean` (false)<br />
+    Set to true to keep unsafe integer instead of bigint.
+    
+  + `unquote?: boolean` (false)<br />
+    Remove leading and trailing quotes (" or ').
 
-#### Translate¹
+- `ignoreGlobalSection?: boolean` (false)<br />
+  Ignore keys without a section aka 'Global' section.
+  
+- `sectionFilter?: string[]`<br />
+  List of section name to filter out.
+  
+- `comment?: boolean` (true)<br />
+  When set to true comments are stored in the symbol property `comment` of the returned object otherwise they are ignored.
+  
+- `removeInline?: boolean` (false)<br />
+  Remove illegal inline comment. ⚠️ Can have false positive. **Use with caution**.
 
-Translate option accepts the following obj for granular control or a boolean true/false which force all options to true/false:
+#### 📝 Implementation notice
 
-|name|type|default|description|
-|----|----|-------|-----------|
-|bool|boolean|true|String to boolean|
-|number|boolean|false|String to number or [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)|
-|unsafe|boolean|false|Set to true to keep unsafe integer instead of bigint|
-|unquote|boolean|false|Remove leading and trailing quote (" or ')|
-
-_Example_: 
-
-```js
-parse(string); //default
-parse(string, {translate : true}); //every to true
-parse(string, {translate : { //granular
-  bool: true,
-  number: true
-}, ignoreGlobalSection: true}); //with an additional parse option
-
-```
-
-#### Implementation notice
-
-- Sections cannot be nested
-- Comments are ignored (; and #)
+- Sections cannot be nested.
+- Comments start with `;` or `#`.
 - Inline comments are not allowed !
-  + Section: they are ignored
-  + Value: they are considered as part of the value _unless_ you use the `removeInline` option 
-- Duplicate names : override first occurrence
-- Case sensitive
-- Name/value delimiter is "=" and is mandatory
-- Whitespace around section name, key name and key value are trimmed.
+  + Section: they are ignored.
+  + Value: they are considered as part of the value _unless_ you use the `removeInline` option to strip them.
+- Duplicate keys: override first occurrence.
+- Case sensitive.
+- Key/value delimiter is `=` and is mandatory.
+- Whitespaces around section, key and value are trimmed.
+- One key/value per line
 
-<details>
-<summary>⚠️ JSON compatibility</summary>
+#### ⚠️ JSON compatibility
 
 Some integers will be represented as **BigInt** due to their size if the related translate options are used.<br/>
 **BigInt is not a valid value in the JSON spec**.<br/>
-As such when stringify-ing the returned object you'll need to handle the JSON stringify replacer function to prevent it to fail.
+As such when stringify-ing the returned object to JSON you'll need to handle the JSON stringify replacer function to prevent it to fail.
 
 A common workaround is to represent them as a string:
 
@@ -139,25 +101,33 @@ JSON.stringify(data, function(key, value) {
 });
 ```
 
-</details>
-
-### `stringify(obj: obj, option?: obj): string`
+### `stringify(obj: object, option?: object): string`
 
 Encode the object obj into an ini-style formatted string.
 
-#### option ⚙️
+#### ⚙️ Options
 
-|name|type|default|description|
-|----|----|-------|-----------|
-|whitespace|boolean|false|Whether to put whitespace around the delimiter =|
-|blankLine|boolean|true|Add blank lines between sections|
-|ignoreGlobalSection|boolean|false|Ignore root properties (not under any namespace if you will)|
-|quoteString|boolean|false|Quote string values using double quotes ("...")|
-|eol|string|system's EOL|Either "\n" _(POSIX)_ or "\r\n" _(Windows)_|
+- `whitespace?: boolean` (false)<br />
+  Whether to put whitespace around the delimiter `=`.
+  
+- `blankLine?: boolean` (true)<br />
+  Add blank lines between sections.
 
-#### Implementation notice
+- `ignoreGlobalSection?: boolean` (false)<br />
+  Ignore root properties (not under any namespace if you will).
+  
+- `quoteString?: boolean` (false)<br />
+  Quote string values using double quotes ("...").
+  
+- `comment?: boolean` (true)<br />
+  Restore comments from the symbol property `comment` of the given object (if any).
+  
+- `eol?: string` (system's EOL)<br />
+  Either "\n" _(POSIX)_ or "\r\n" _(Windows)_.
 
-- Sections shall not be nested
-- Case sensitive
-- Empty sections are allowed
-- Key value can only be a boolean, number, [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) or string
+#### 📝 Implementation notice
+
+- Sections shall not be nested.
+- Case sensitive.
+- Empty sections are allowed.
+- Value can only be a boolean, number, bigint or string.

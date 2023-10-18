@@ -1,7 +1,7 @@
 {
   "name": "@xan105/ini",
   "version": "2.1.1",
-  "description": "Yet another (opinionated) ini encoder/decoder for Node.js.",
+  "description": "An opinionated ini encoder/decoder with comment-preserving feature.",
   "type": "module",
   "exports": {
     ".": {
@@ -11,16 +11,18 @@
   },
   "types": "./types/index.d.ts",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "lint": "eslint \"./lib/**/*.{js,mjs}\" \"./types/**/*.d.ts\"",
-    "test": "tap \"./test/**/*.js\" --no-coverage --no-coverage-report",
+    "test": "tap \"./test/**/*.js\" --disable-coverage",
     "check": "tsc --noemit --checkjs",
     "declare": "tsc --declaration --emitDeclarationOnly --outDir \"./types\""
   },
   "keywords": [
-    "ini"
+    "ini",
+    "parse",
+    "comment"
   ],
   "author": {
     "name": "Anthony Beaumont",
@@ -51,14 +53,14 @@
     }
   ],
   "devDependencies": {
-    "@types/node": "^18.11.12",
-    "@typescript-eslint/eslint-plugin": "^5.46.0",
-    "@typescript-eslint/parser": "^5.46.0",
-    "eslint": "^8.29.0",
-    "tap": "^16.3.2",
-    "typescript": "^4.9.4"
+    "@types/node": "^20.8.7",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.51.0",
+    "tap": "^18.5.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@xan105/is": "^2.7.0"
+    "@xan105/is": "^2.8.2"
   }
 }
