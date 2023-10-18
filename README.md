@@ -46,29 +46,29 @@ Decode the ini-style formatted string into an object.
   
   💡 Translate option accepts an object for granular control or a boolean which will force all following options to true/false:
   
-  + `bool?:boolean` (true)
+  + `bool?:boolean` (true)<br />
     String to boolean.
     
-  + `number?:boolean` (false)
+  + `number?:boolean` (false)<br />
     String to number or bigint.
     
-  + `unsafe?:boolean` (false)
+  + `unsafe?:boolean` (false)<br />
     Set to true to keep unsafe integer instead of bigint.
     
-  + `unquote?:boolean` (false)
+  + `unquote?:boolean` (false)<br />
     Remove leading and trailing quotes (" or ').
 
-- `ignoreGlobalSection?: boolean` (false)
+- `ignoreGlobalSection?: boolean` (false)<br />
   Ignore keys without a section aka 'Global' section.
   
-- `sectionFilter?: string[]`
+- `sectionFilter?: string[]`<br />
   List of section name to filter out.
   
-- `comment?: boolean` (true)
+- `comment?: boolean` (true)<br />
   When set to true comments are stored in the symbol property `comment` of the returned object otherwise they are ignored.
   
-- `removeInline?:boolean` (false)
-  Remove illegal inline comment<br/>
+- `removeInline?:boolean` (false)<br />
+  Remove illegal inline comment<br />
   ⚠️ Can have false positive. **Use with caution**.
 
 #### 📝 Implementation notice
@@ -106,19 +106,22 @@ Encode the object obj into an ini-style formatted string.
 
 #### ⚙️ Options
 
-- `whitespace?:boolean` (false)
+- `whitespace?:boolean` (false)<br />
   Whether to put whitespace around the delimiter `=`.
   
-- `blankLine?:boolean` (true)
+- `blankLine?:boolean` (true)<br />
   Add blank lines between sections.
 
-- `ignoreGlobalSection?:boolean` (false)
+- `ignoreGlobalSection?:boolean` (false)<br />
   Ignore root properties (not under any namespace if you will).
   
-- `quoteString?:boolean` (false)
+- `quoteString?:boolean` (false)<br />
   Quote string values using double quotes ("...").
   
-- `eol?:string` (system's EOL)
+- `comment?: boolean` (true)<br />
+  Restore comments from the symbol property `comment` of the given object.
+  
+- `eol?:string` (system's EOL)<br />
   Either "\n" _(POSIX)_ or "\r\n" _(Windows)_.
 
 #### 📝 Implementation notice
